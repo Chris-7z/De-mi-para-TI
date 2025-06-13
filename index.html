@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> De mi para TI ❤️</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background: url('https://i.pinimg.com/originals/36/26/ee/3626ee872d53ab5b5abe686128c9bd62.gif') no-repeat center center;
+                background-size: cover;
+                background-attachment: fixed;
+                font-family: 'Arial', sans-serif;
+                text-align: center;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .message {
+                background: rgba(255, 255, 255, 0.8);
+                padding: 25px;
+                border-radius: 15px;
+                box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+                font-size: 28px;
+                color: #d63384;
+                font-weight: bold;
+                margin-bottom: 25px;
+                transition: transform 0.3s ease;
+                animation: bounce 1s infinite;
+            }
+
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-15px); }
+            }
+
+            .message:hover {
+                transform: scale(1.1);
+            }
+
+            #bubbles-text {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                overflow: hidden;
+                z-index: 1;
+            }
+
+            .text-bubble {
+                position: absolute;
+                font-size: 18px;
+                font-family: 'Cursive', sans-serif;
+                color: #d63384;
+                background-color: rgba(255, 255, 255, 0.7);
+                padding: 10px 20px;
+                border-radius: 25px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                animation: floatText 8s ease-in-out forwards;
+                white-space: nowrap;
+            }
+
+            @keyframes floatText {
+                0% { opacity: 0; transform: scale(0.5) translateY(0px); }
+                50% { opacity: 1; transform: scale(1.2) translateY(-50px); }
+                100% { opacity: 0; transform: scale(1) translateY(-100px); }
+            }
+
+            @media (max-width: 768px) {
+                .message { font-size: 24px; padding: 20px; }
+                .text-bubble { font-size: 16px; padding: 8px 16px; }
+            }
+        </style>
+    </head>
+    <body>
+    <!-- 🎵 Música de fondo desde archivo local con botón -->
+<audio id="myAudio" src="nosee.mp3" loop></audio>
+
+<button id="playButton" onclick="playMusic()"> presionar 💖</button>
+
+<script>
+  function playMusic() {
+    const audio = document.getElementById("myAudio");
+    const button = document.getElementById("playButton");
+
+    audio.play();
+    button.style.display = "none";
+  }
+</script>
+
+        <div class="message">Thaiss ❤️</div>
+        <div id="bubbles-text"></div>
+
+        <script>
+            // Lista de mensajes románticos que aparecerán en burbujas
+            const messages = [
+                "Te amo ❤️",
+                "Cachetona LIMDA 🌟",
+                "Tomta Limda 💕",
+                "Siempre seras mía 🥰",
+                "Siempre seras tu 💖",
+                "Tomtita 💫",
+                "Ojitos de miel 😍",
+                "Cachetona HERMOSA ✨",
+                "Niña Preciosa 💭",
+                "Niña HERMOSA 💘"
+            ];
+
+            // Función que crea una burbuja de texto con un mensaje aleatorio
+            function createTextBubble() {
+                const bubble = document.createElement("div");
+                bubble.className = "text-bubble";
+                bubble.innerText = messages[Math.floor(Math.random() * messages.length)];
+
+                const left = Math.random() * 80 + 10;
+                const top = Math.random() * 80 + 10;
+                bubble.style.left = left + "vw";
+                bubble.style.top = top + "vh";
+
+                const container = document.getElementById("bubbles-text");
+                container.appendChild(bubble);
+
+                setTimeout(() => {
+                    const rect = bubble.getBoundingClientRect();
+                    if (rect.right > window.innerWidth) {
+                        bubble.style.left = `${window.innerWidth - rect.width - 10}px`;
+                    }
+                    if (rect.bottom > window.innerHeight) {
+                        bubble.style.top = `${window.innerHeight - rect.height - 10}px`;
+                    }
+                    if (rect.left < 0) {
+                        bubble.style.left = "10px";
+                    }
+                    if (rect.top < 0) {
+                        bubble.style.top = "10px";
+                    }
+                }, 10);
+
+                setTimeout(() => {
+                    bubble.remove();
+                }, 8000);
+            }
+
+            // Crea burbujas cada 500 milisegundos
+            setInterval(createTextBubble, 500);
+        </script>
+    </body>
+
+    
+</html>
